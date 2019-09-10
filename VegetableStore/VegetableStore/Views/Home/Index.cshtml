@@ -1,0 +1,391 @@
+﻿@model HomeViewModel
+@{
+
+    ViewData["MetaKeyword"] = Model.MetaKeyword;
+    ViewData["MetaDescription"] = Model.MetaDescription;
+}
+@section Scripts{
+    <script src="~/client-app/controllers/home/index.js" asp-append-version="true"></script>
+    <script>
+        var home = new HomeController();
+        home.initialize();
+    </script>
+}
+<!--Slider start-->
+<div class="slider_area">
+    <div class="slider_list  owl-carousel">
+        <div class="single_slide" style="background-image: url(assets/img/slider/1.jpg);">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="slider__content">
+                            <h2>Chúng tôi <strong>cung cấp</strong> sản phẩm</h2>
+                            <h3> tốt nhất  <strong> đến bạn </strong></h3>
+                            <h6>chỉ từ <span>50.000</span></h6>
+                            <div class="slider_btn">
+                                <a href="/products.html">Mua ngay</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="single_slide" style="background-image: url(assets/img/slider/2.jpg);">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="slider__content">
+
+                            <h2>Chúng tôi <strong>cung cấp</strong> sản phẩm</h2>
+                            <h3> tốt nhất  <strong> đến bạn </strong></h3>
+                            <h6>chỉ từ <span>50.000</span></h6>
+                            <div class="slider_btn">
+                                <a href="/products.html">Mua ngay</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Slider end-->
+<!--Banner area start-->
+<div class="banner_area home1_banner mt-30">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-4 col-md-6">
+                <div class="single_banner">
+                    <a href="#">
+                        <img src="assets/img/banner/1.jpg" alt="">
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="single_banner">
+                    <a href="#">
+                        <img src="assets/img/banner/2.jpg" alt="">
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6">
+                <div class="single_banner banner_three">
+                    <a href="#">
+                        <img src="~/assets/img/banner/3.jpg" alt="">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Banner area end-->
+<!--Features product area-->
+<div class="features_product pt-90">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="section_title text-center">
+                    <h3> Sản phẩm nổi bật </h3>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="features_product_active owl-carousel">
+                @foreach (var item in Model.HotProducts)
+                {
+                    var url = "";
+                    if (item.CategoryId != 7)
+                    {
+                        url = "/" + item.Name + "-" + "p." + item.Id + ".html";
+                    }
+                    else
+                    {
+                        url = "/" + item.Name + "-" + "s." + item.Id + ".html";
+                    }
+                    <div class="col-lg-2">
+                        <div class="single__product">
+                            <div class="single_product__inner">
+                                <span class="new_badge">new</span>
+                                @if (item.Quality != 0)
+                                {
+                                    <span class="number">Còn hàng</span>
+                                }
+                                else
+                                {
+                                    <span class="number" style="background:orangered">Hết hàng</span>
+                                }
+                                <div class="product_img">
+                                    <a href="@url">
+                                        <img src="@item.Image" alt="" style="height:253.8px;width:350px">
+                                    </a>
+                                </div>
+                                <div class="product__content text-center">
+                                    <div class="produc_desc_info">
+                                        <div class="product_title">
+                                            <h4><a href="@url">@item.Name</a></h4>
+                                        </div>
+                                        <div class="product_price">
+                                            <p>@item.Price vnđ</p>
+                                        </div>
+                                    </div>
+                                    <div class="product__hover">
+                                        <ul>
+                                            <li><a href="#" class="cart-order" data-id="@item.Id"><i class="ion-android-cart" title="Thêm vào gỏi"></i></a></li>
+                                            <li><a class="cart-fore" href="#" data-id="@item.Id" data-toggle="modal" data-target="#my_modal" title="Xem Nhanh"><i class="ion-android-open"></i></a></li>
+                                            <li><a href="@url" data-id="@item.Id"><i class="ion-clipboard" title="Xem thông tin"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+        </div>
+    </div>
+</div>
+<!--Features product end-->
+<!--Shipping area start-->
+<div class="shipping_area">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="shipping_list d-flex justify-content-between flex-xs-column">
+                    <div class="single_shipping_box d-flex">
+                        <div class="shipping_icon">
+                            <img src="~/assets/img/ship/1.png" alt="shipping icon">
+                        </div>
+                        <div class="shipping_content">
+                            <h6>Miễn phí vận chuyển cho hóa đơn trên 1 triệu đồng</h6>
+                            <p>Áp dụng cho tất cả các hóa đơn</p>
+                        </div>
+                    </div>
+                    <div class="single_shipping_box one d-flex">
+                        <div class="shipping_icon">
+                            <img src="~/assets/img/ship/2.png" alt="shipping icon">
+                        </div>
+                        <div class="shipping_content">
+                            <h6>Hoàn tiền</h6>
+                            <p>
+                                Hoàn tiền lại nếu sản phẩm
+                            </p>
+                            <p>
+                                gặp lỗi khi vận chuyển
+                            </p>
+                        </div>
+                    </div>
+                    <div class="single_shipping_box two d-flex">
+                        <div class="shipping_icon">
+                            <img src="~/assets/img/ship/3.png" alt="shipping icon">
+                        </div>
+                        <div class="shipping_content">
+                            <h6>Chăm sóc khách hàng</h6>
+                            <p>Hỗ trợ tư vấn miễn phí 24/7</p>
+                        </div>
+                    </div>
+                    <div class="single_shipping_box three d-flex">
+                        <div class="shipping_icon">
+                            <img src="~/assets/img/ship/4.png" alt="shipping icon">
+                        </div>
+                        <div class="shipping_content">
+                            <h6>Khách hàng thân thiết</h6>
+                            <p>Chính sách giảm giá,</p>
+                            <p>chiết khấu cao</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Shipping area end-->
+<!--shop product area start-->
+<div class="shop_product">
+
+</div>
+<!--shop product area end-->
+<!--Banner area start-->
+<div class="banner_area home1_banner2 pb-90">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="single_banner">
+                    <a href="#">
+                        <img src="~/assets/img/banner/big-1.jpg" alt="">
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="single_banner">
+                    <a href="#">
+                        <img src="~/assets/img/banner/big-2.jpg" alt="">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Banner area end-->
+<!--Recommended product area start-->
+<div class="recommended_product">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="shop_product_head d-flex justify-content-between mb-30">
+                    <div class="section_title space_2 text-left">
+                        <h3>Sản phẩm khuyên dùng</h3>
+                    </div>
+                    <div class="home_shop_product text-right">
+                        <ul class="product-tab-list nav d-flex flex-wrap justify-content-end" role="tablist">
+                            <li>
+                                <a class="active" href="#fresh_fruit" data-toggle="tab" role="tab" aria-selected="true" aria-controls="fresh_fruit">
+                                    Trái cây tươi
+                                </a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-content">
+            <div class="tab-pane active show fade" id="fresh_fruit" role="tabpanel">
+                <div class="row">
+                    <div class="features_product_active owl-carousel">
+                        @foreach (var item in Model.TopSellProducts)
+                        {
+                            var url = "/" + item.Name + "-" + "p." + item.Id + ".html";
+                            <div class="col-lg-2">
+                                <div class="single__product">
+                                    <div class="single_product__inner">
+                                        <span class="new_badge">new</span>
+                                        @if (item.Quality != 0)
+                                        {
+                                            <span class="number">Còn hàng</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="number" style="background:orangered">Hết hàng</span>
+                                        }
+
+                                        <div class="product_img">
+                                            <a href="#">
+                                                <img src="@item.Image" alt="" style="height:253.8px;width:350px">
+                                            </a>
+                                        </div>
+                                        <div class="product__content text-center">
+                                            <div class="produc_desc_info">
+                                                <div class="product_title">
+                                                    <h4><a href="@url">@item.Name</a></h4>
+                                                </div>
+                                                <div class="product_price">
+                                                    <p>@item.Price vnđ</p>
+                                                </div>
+                                            </div>
+                                            <div class="product__hover">
+                                                <ul>
+                                                    <li><a href="#" class="cart-order" data-id="@item.Id"><i class="ion-android-cart" title="Thêm vào gỏi"></i></a></li>
+                                                    <li><a class="cart-fore" href="#" data-id="@item.Id" data-toggle="modal" data-target="#my_modal" title="Xem Nhanh"><i class="ion-android-open"></i></a></li>
+                                                    <li><a href="@url" data-id="@item.Id"><i class="ion-clipboard" title="Xem thông tin"></i></a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+
+    </div>
+</div>
+<!--Recommended product area end-->
+<!--New product area-->
+<!--new product end-->
+<!--Banner area start-->
+<div class="banner_area banner_area-2 pb-90">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-3 col-md-4">
+                <div class="single_banner">
+                    <a href="#">
+                        <img src="~/assets/img/banner/banner-4.jpg" alt="">
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-4">
+                <div class="single_banner">
+                    <a href="#">
+                        <img src="~/assets/img/banner/banner-5.jpg" alt="">
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4">
+                <div class="single_banner">
+                    <a href="#">
+                        <img src="~/assets/img/banner/banner-6.jpg" alt="">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Banner area end-->
+<!--Best seller product -->
+<div class="best_seller_product">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="section_title space_2 text-left">
+                    <h3> Sản phẩm bán chạy </h3>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class=" features_product_active best_selling_product_list owl-carousel">
+                    @foreach (var item in Model.HotProducts)
+                    {
+                        var url = "/" + item.Name + "-" + "p." + item.Id + ".html";
+                        <div class="best_selling_product">
+                            <div class=" single_small_product mb-30">
+                                <div class="product_thumb">
+                                    <a href="@url">
+                                        <img src="@item.Image" alt="" style="width:82px;height:60px">
+                                    </a>
+                                </div>
+                                <div class="product_content">
+                                    <h4><a href="@url">@item.Name</a></h4>
+                                    <div class="product_ratting">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star-half-o"></i>
+                                        <i class="fa fa-star-o"></i>
+                                    </div>
+                                    <div class="product_price">
+                                        <span class="regular_price">$@item.Price</span>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Best seller product  end-->
+<!--Brand logo start-->
+@Html.Partial("_modalView.cshtml")
+
+<!--Brand logo end-->

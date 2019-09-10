@@ -1,0 +1,118 @@
+﻿@model VegetableStore.Models.ViewModels.DetailViewModel
+@inject UserManager<AppUser> UserManager
+@{
+    ViewData["Title"] = Model.Product.Name;
+    var product = Model.Product;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3>Đặt hàng trước</h3>
+
+<div class="blog_details_area">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-lg-12 col-md-12">
+                <div class="blog_details_info">
+                    
+                    <h3>@product.Name </h3>
+                    <div class="blog_details_img">
+                        <img src="@product.Image" style=" display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width:50%" alt="">
+                    </div>
+                    <div class="post_excerpt">
+                        <p>@product.Description</p>
+                    </div>
+
+
+                    <div class="blog_leave_area">
+                        <h3>Để lại thông tin</h3>
+                        <form action="#">
+
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="blog_leave_form mb-20">
+                                        <input placeholder="Tên *" type="text">
+                                    </div>
+                                    <div class="blog_leave_form mb-20">
+                                        <input placeholder="Địa chỉ *" type="text">
+                                    </div>
+                                    <div class="blog_leave_form mb-20">
+                                        <input placeholder="Số điện thoại" type="text">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="label_textarea">
+                                        <textarea placeholder="Yêu cầu *"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="blog_leave_btn">
+                                        <button type="submit">Đặt trước</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="blog_replay_wrapper">
+                        <h4>2 bình luận</h4>
+                        <div class="single_blog_replay mb-50">
+                            <div class="replay_img">
+                                <a href="#"><img src="assets/img/cart/14.jpg" alt=""></a>
+                            </div>
+                            <div class="replay-info-wrapper">
+                                <div class="replay-info">
+                                    <div class="replay-name-date">
+                                        <h4><a href="#">Tayeb rayed</a></h4>
+                                        <span>July 15, 2016 at 2:39 am</span>
+                                    </div>
+                                    <div class="replay-btn">
+                                        <a href="#">Reply</a>
+                                    </div>
+                                </div>
+                                <p>Exercitation photo booth stumptown tote bag Banksy, elit small batch freegan sed.</p>
+                            </div>
+                        </div>
+                        <div class="single_blog_replay two mb-50">
+                            <div class="replay_img">
+                                <a href="#"><img src="assets/img/cart/15.jpg" alt=""></a>
+                            </div>
+                            <div class="replay-info-wrapper">
+                                <div class="replay-info">
+                                    <div class="replay-name-date">
+                                        <h4><a href="#">JOHN NGUYEN</a></h4>
+                                        <span>July 15, 2016 at 2:39 am</span>
+                                    </div>
+                                    <div class="replay-btn">
+                                        <a href="#">Reply</a>
+                                    </div>
+                                </div>
+                                <p>Exercitation photo booth stumptown tote bag Banksy, elit small batch freegan sed.</p>
+                            </div>
+                        </div>
+                        <div class="single_blog_replay">
+                            <div class="replay_img">
+                                <a href="#"><img src="assets/img/cart/16.jpg" alt=""></a>
+                            </div>
+                            <div class="replay-info-wrapper">
+                                <div class="replay-info">
+                                    <div class="replay-name-date">
+                                        <h4><a href="#">JOHN NGUYEN</a></h4>
+                                        <span>July 15, 2016 at 2:39 am</span>
+                                    </div>
+                                    <div class="replay-btn">
+                                        <a href="#">Reply</a>
+                                    </div>
+                                </div>
+                                <p>Exercitation photo booth stumptown tote bag Banksy, elit small batch freegan sed.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

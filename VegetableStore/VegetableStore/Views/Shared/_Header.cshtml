@@ -1,0 +1,103 @@
+﻿@inject IViewLocalizer Localizer
+@inject UserManager<AppUser> UserManager
+@inject SignInManager<AppUser> SignInManager
+@if (UserManager.GetUserName(User) == "admin")
+{
+    await SignInManager.SignOutAsync();
+
+}
+@section Script{
+    window.location.reload();
+}
+<header class="header sticky-header">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="header_wrapper_inner">
+
+                    <div class="logo col-xs-12">
+                        <a href="/">
+                            <img src="assets/img/logo/logo.png" alt="" style="width:200px;height:40px">
+                        </a>
+
+                    </div>
+                    <div class="main_menu_inner">
+
+                        <div class="menu">
+                            <nav>
+                                <ul>
+                                    <li class="active">
+                                        <a href="/">Trang chủ</a>
+                                    </li>
+                                    <li><a asp-controller="Home" asp-action="About">Chúng tôi </a> </li>
+                                    <li><a href="/blog.html">Bài viết </a> </li>
+                                    <li><a asp-controller="Product" asp-action="Index">Mua sắm</a>  </li>
+                                    <li>
+                                        <a asp-controller="Home" asp-action="Gop">Đặt trước</a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+
+
+                    </div>
+                    <div class="header_right_info d-flex">
+                        <div class="search_box">
+                            <div class="search_inner">
+                                <form method="get" action="/search.html">
+                                    <input type="text" placeholder="Tìm kiếm ..." name="keyword">
+                                    <button class="btn-search" type="submit"><i class="ion-ios-search"></i></button>
+                                </form>
+                            </div>
+                        </div>
+                        <vc:header-cart></vc:header-cart>
+                        <div class="header_account">
+                            <div class="account_inner">
+                                @*<span id="popup" style="display: none;position: absolute;background-color: lightgrey;top :3px">@UserManager.GetUserName(User)</span>*@
+
+                                <i title="@UserManager.GetUserName(User)">@UserManager.GetUserName(User)</i>
+                                <a href="#"><i class="ion-gear-b"></i></a>
+
+                            </div>
+                            <div class="content-setting-dropdown">
+                                <div class="language-selector-wrapper">
+
+                                    <div class="user_info_top">
+                                        <ul>
+
+
+
+                                            @if (SignInManager.IsSignedIn(User))
+                                            {
+                                                <li><a href="myaccount.html">Thông tin cá nhân</a></li>
+                                                <li><a href="checkout.html">Thanh toán</a></li>
+                                                <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" method="post" id="logoutForm" class="navbar-right ">
+                                                    <div class="nav navbar-nav navbar-right">
+
+                                                        <div class="nav navbar-nav navbar-right ">
+                                                            <button type="submit" class="btn btn-link navbar-btn navbar-link" id="logout">Đăng xuất</button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            }
+                                            else
+                                            {
+                                                <li class="nav navbar-nav navbar-right">
+                                                    <a href="/login.html">Đăng nhập</a>
+                                                </li>
+                                                <li class="nav navbar-nav navbar-right">
+                                                    <a href="/register.html">Đăng kí</a>
+                                                </li>
+                                            }
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</header>

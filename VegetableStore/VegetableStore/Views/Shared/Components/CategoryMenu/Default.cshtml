@@ -1,0 +1,31 @@
+﻿@model List<ProductCategoryViewModel>
+
+@inject IViewLocalizer Localizer
+<div class="category_top_menu widget">
+    <div class="widget_title">
+        <h3>@Localizer["Danh mục"]</h3>
+    </div>
+    <ul class="shop_toggle">
+        @foreach (var item in Model.Where(x => x.ParentId == null))
+        {
+            if (Model.Any(x => x.ParentId == item.Id))
+            {
+                <li class="has-sub">
+                    <a href="#">@item.Name </a>
+                    <ul class="categorie_sub">
+                        @foreach (var subItem in Model.Where(x => x.ParentId == item.Id))
+                        {
+                            <li><a href="/@subItem.Name-c.@(subItem.Id).html">@subItem.Name</a></li>
+                        }
+                    </ul>
+                </li>
+            }
+            else
+            {
+                <li class="no-sub"><a href="/@item.Name-c.@(item.Id).html">@item.Name</a></li>
+            }
+
+        }
+     
+    </ul>
+</div>

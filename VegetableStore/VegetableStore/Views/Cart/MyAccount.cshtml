@@ -1,0 +1,106 @@
+﻿@model List<BillViewModel>
+@inject UserManager<AppUser> UserManager
+@{
+    var username = UserManager.GetUserName(User).ToString();
+    var bills = Model.Where(x => x.CustomerId.ToString() == UserManager.GetUserId(User));
+    var user = UserManager.Users.FirstOrDefault(x => x.Email == username);
+}
+<div class="breadcrumb_container">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <nav>
+                    <ul>
+                        <li><a href="#">Trang chủ</a> ></li>
+                        <li>Tài khoản</li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<section class="main-content-area my-account ptb-100">
+    <div class="container">
+        <div class="account-dashboard">
+            <div class="row">
+                <div class="col-sm-12 col-md-3 col-lg-3">
+                    <!-- Nav tabs -->
+                    <ul role="tablist" class="nav flex-column dashboard-list">
+                        <li><a href="#dashboard" data-toggle="tab" class="nav-link active">Bảng điều khiển</a></li>
+                        <li> <a href="#orders" data-toggle="tab" class="nav-link">Đặt hàng</a></li>
+                        <li><a href="#account-details" data-toggle="tab" class="nav-link">Thông tin tài khoản</a></li>
+                        <li><a href="#" class="nav-link" onclick="logout()">Đăng xuất</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-12 col-md-9 col-lg-9">
+                    <!-- Tab panes -->
+                    <div class="tab-content dashboard-content">
+                        <div class="tab-pane fade show active" id="dashboard">
+                            <h3>Bảng điều khiển </h3>
+                            <p>Từ bảng điều khiển tài khoản của bạn. bạn có thể dễ dàng kiểm tra và xem các đơn đặt hàng gần đây, quản lý địa chỉ giao hàng và thanh toán cũng như Chỉnh sửa mật khẩu và chi tiết tài khoản của bạn.</a></p>
+                        </div>
+                        <div class="tab-pane fade" id="orders">
+                            <h3>Đơn hàng</h3>
+                            <div class="organic-table-area table-responsive">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Ngày tạo</th>
+                                            <th>Trạng thái</th>
+                                            <th>Tổng cộng</th>
+                                            <th>Hủy</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        @foreach (var item in bills)
+                                        {
+                                            <tr>
+                                                <td>@item.Id</td>
+                                                <td>@item.DateCreated</td>
+                                                <td><span class="success">@item.BillStatus</span></td>
+                                                <td> $@item.BillDetails.Sum(x => x.Quantity * x.Price).ToString("N0") for @item.BillDetails.Count(x => x.BillId == item.Id) items </td>
+                                                <td><a  class="remove"data-id="@item.Id">X</a></td>
+                                            </tr>
+                                        }
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>                
+                        <div class="tab-pane fade" id="account-details">
+                            <h3>Thông tin tài khoản </h3>
+                            <div class="login">
+                                <div class="login-form-container">
+                                    <div class="account-login-form">
+                                        <form action="#">
+                                            <label>Họ và tên</label>
+                                            <input type="text" name="full-name" value="@user.FullName">
+                                            <label>Email</label>
+                                            <input type="text" name="email-name" value="@user.Email">
+                                            <label>Ngày sinh</label>
+                                            <input type="text" placeholder="MM/DD/YYYY" value="" name="birthday">
+                                            <span class="example">
+                                                (E.g.: 05/31/1970)
+                                            </span>
+                                            <label>Địa chỉ</label>
+                                            <input type="text" value="@user.Address" name="birthday">
+                                            <label>Số điện thoại</label>
+                                            <input type="text" value="@user.PhoneNumber" name="phonenumber">
+                                            <div class="order-button">
+                                                <button type="submit" class="button pull-right">Lưu</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

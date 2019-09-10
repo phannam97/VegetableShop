@@ -1,0 +1,60 @@
+﻿@model List<ShoppingCartViewModel>
+<div class="mini__cart" id="headerCart">
+    <div class="mini_cart_inner">
+        <div class="cart_icon">
+            <a href="#">
+                <span class="cart_icon_inner">
+                    <i class="ion-android-cart"></i>
+                    @if (Model.Count > 0)
+                    {
+                        <span class="cart_count">@Model.Count</span>
+                    }
+
+                </span>
+            </a>
+        </div>
+        <!--Mini Cart Box-->
+        <div class="mini_cart_box cart_box_one">
+            @if (Model.Count > 0)
+            {
+                @foreach (var item in Model)
+                {
+                    var url = "/" + item.Product.Name + "-" + "p." + item.Product.Id + ".html";
+                    <div class="mini_cart_item">
+                        <div class="mini_cart_img">
+                            <a href="#">
+                                <img src="@item.Product.Image" alt="">
+                                <span class="cart_count">@item.Quantity</span>
+                            </a>
+                        </div>
+                        <div class="cart_info">
+                            <h5><a href="@url">@item.Product.Name</a></h5>
+                            <span class="cart_price">$@item.Product.Price</span>
+                        </div>
+                        <div class="cart_remove">
+                            <a href="#" title="@item.Product.Name" data-id="@item.Product.Id" class="remove-cart"><i class="zmdi zmdi-delete"></i></a>
+                        </div>
+                    </div>
+                }
+               
+                <div class="price_content">
+                    <div class="cart_subtotals">
+                        <div class="price_inline">
+                            <span class="label">Subtotal </span>
+                            <span class="value">$@Model.Sum(x => x.Quantity * x.Price).ToString("N0") </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="min_cart_checkout">
+                    <a href="checkout.html">Checkout</a>
+                </div>
+            }
+            else
+            {
+                <p>Không có sản phẩm nào !!</p>
+            }
+        </div>
+    </div>
+</div>
+    
+

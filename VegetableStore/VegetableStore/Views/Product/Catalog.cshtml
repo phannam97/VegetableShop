@@ -1,0 +1,195 @@
+﻿@model VegetableStore.Models.ViewModels.ListProductViewModel
+
+@{
+    ViewData["Title"] = Model.Data.CurrentPage;
+    ViewData["MetaKeyword"] = Model.Data.CurrentPage;
+    ViewData["MetaDescription"] = Model.Data.CurrentPage;
+}
+<!-- Breadcrumbs -->
+@section Scripts{
+    <script src="~/client-app/controllers/product/details.js" asp-append-version="true"></script>
+    <script>
+        var ProductDetail = new ProductDetailController();
+        ProductDetail.initialize();
+    </script>
+}
+<div class="breadcrumb_container">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <nav>
+                    <ul>
+                        <li>
+                            <a href="/">Trang chủ ></a>
+                        </li>
+                        <li>@Model.Category.Name</li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumbs End -->
+<!-- Main Container -->
+<div class="organic_food_wrapper">
+    <!--- shop_wrapper area  -->
+    <div class="shop_wrapper ptb-90">
+        <div class="container-fluid">
+            <div class="row">
+
+                <div class="col-lg-12 col-md-12 col-12">
+                    <div class="categories_banner">
+                        <div class="categories_banner_inner">
+                            <img src="assets/img/banner/shop.jpg" alt="">
+                        </div>
+                        <h3></h3>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-lg-3 col-md-8 col-12">
+                    <div class="shop_sidebar">
+                        <div class="block_categories">
+                            @await Component.InvokeAsync("CategoryMenu")
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-9 col-md-12 col-12">
+                    <div class="tav_menu_wrapper">
+                        <div class="row align-items-center">
+                            <div class="col-lg-6 col-md-7 col-sm-6">
+                                <div class="tab_menu shop_menu">
+                                    <div class="tab_menu_inner">
+                                        <ul class="nav" role="tablist">
+                                            <li><a class="active" data-toggle="tab" href="#shop_active" role="tab" aria-controls="shop_active" aria-selected="true"><i class="fa fa-th" aria-hidden="true"></i></a></li>
+
+                                            <li><a data-toggle="tab" href="#featured_active" role="tab" aria-controls="featured_active" aria-selected="false"><i class="fa fa-list" aria-hidden="true"></i></a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="tab_menu_right">
+                                        <p>Có  @Model.Data.Results.Count() sản phẩm</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-5 col-sm-6">                                
+                                <form action="/@Model.Category.Name-c.@(Model.Category.Id).html" method="get">
+                                    <span>Sắp xếp theo :</span>
+                                    <div class="dropdown dropdown-shop">
+                                        <select name="drop" id="dropdown" asp-for="SortType"
+                                                onchange="this.form.submit()" asp-items="Model.SortTypes"></select>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab_product_wrapper">
+                        <div class="tab-content">
+                            <div class="tab-pane fade show active" id="shop_active">
+                                <div class="row">
+                                    @foreach (var item in Model.Data.Results)
+                                    {
+                                        var url = "/" + item.Name + "-" + "p." + item.Id + ".html";
+                                        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
+
+                                            <div class="single__product">
+                                                <div class="single_product__inner">
+                                                    <span class="new_badge">mới</span>
+                                                    @if (item.Quality != 0)
+                                                    {
+                                                        <span class="number">Còn hàng</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="number" style="background:orangered">Hết hàng</span>
+                                                    }
+                                                    <div class="product_img">
+                                                        <a href="@url">
+                                                            <img style="height:253.8px;width:253.8px" src="@item.Image" alt="">
+                                                        </a>
+                                                    </div>
+                                                    <div class="product__content text-center">
+                                                        <div class="produc_desc_info">
+                                                            <div class="product_title">
+                                                                <h4><a href="@url">@item.Name</a></h4>
+                                                            </div>
+                                                            <div class="product_price">
+                                                                <p>@item.Price</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="product__hover">
+                                                            <ul>
+                                                                <li><a href="#" class="cart-order" data-id="@item.Id"><i class="ion-android-cart" title="Thêm vào gỏi"></i></a></li>
+                                                                <li><a class="cart-fore" href="#" data-id="@item.Id" data-toggle="modal" data-target="#my_modal" title="Xem Nhanh"><i class="ion-android-open"></i></a></li>
+                                                                <li><a href="@url" data-id="@item.Id"><i class="ion-clipboard" title="Xem thông tin"></i></a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="featured_active" role="tabpanel">
+                                @foreach (var item in Model.Data.Results)
+                                {
+                                    var url = "/" + item.Name + "-" + "p." + item.Id + ".html";
+                                    <div class="tab_product_bottom_wrapper">
+                                        <div class="row">
+                                            <div class="col-lg-4 col-md-5 col-sm-5">
+                                                <div class="single_product__inner inner_shop">
+                                                    <span class="new_badge">new</span>
+                                                    <span class="discount_price">-5%</span>
+                                                    <div class="product_img">
+                                                        <a href="@url">
+                                                            <img src="@item.Image" alt=""style="height:253.8px;width:253.8px">
+                                                        </a>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-8 col-md-7 col-sm-7">
+                                                <div class="product__content text-left">
+                                                    <div class="produc_desc_info">
+                                                        <div class="product_title title_shop">
+                                                            <h4><a href="@url">@item.Name</a></h4>
+                                                        </div>
+                                                        <div class="product_price price_shop">
+
+                                                            <p>@item.Price</p>
+                                                        </div>
+                                                        <div class="product_content_shop">
+                                                            <p>@item.Description</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="product__hover hover_shop">
+                                                        <div class="product_addto_cart">
+                                                            <button type="submit">Thêm vào giỏ</button>
+                                                        </div>
+                                                        <div class="product_cart_icone">
+                                                            <ul>
+                                                                <li><a href="#" class="cart-order" data-id="@item.Id"><i class="ion-android-cart" title="Thêm vào gỏi"></i></a></li>
+                                                                <li><a class="cart-fore" href="#" data-id="@item.Id" data-toggle="modal" data-target="#my_modal" title="Xem Nhanh"><i class="ion-android-open"></i></a></li>
+                                                                <li><a href="@url" data-id="@item.Id"><i class="ion-clipboard" title="Xem thông tin"></i></a></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    @(await Component.InvokeAsync("Pager", Model.Data))
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+@Html.Partial("_modalView.cshtml")

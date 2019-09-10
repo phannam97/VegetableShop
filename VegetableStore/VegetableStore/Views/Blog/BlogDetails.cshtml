@@ -1,0 +1,163 @@
+﻿@model BlogViewModel
+@{
+    ViewData["Title"] = "BlogDetails";
+
+}
+
+@section Scripts{
+<script>
+    
+    var a = '@Model.Content';
+    $('div.post_excerpt').html(a);
+    var url = $('div.post_excerpt').text();
+    $('div.post_excerpt').html(url);
+
+ </script>
+}
+<div class="breadcrumb_container">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <nav>
+                    <ul>
+                        <li>
+                            <a href="/">Trang chủ ></a>
+                        </li>
+                        <li>@Model.Title</li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="blog_details_area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-8">
+                <div class="blog_details_left">
+                    <div class="blog_left_sidebar mb-50">
+                        <div class="blog_sidebar_img">
+                            <img src="assets/img/blog/4.jpg" alt="">
+                        </div>
+                        <div class="blog_sidebar_img_content">
+                            <div class="blog_sidebar_social">
+                                <ul>
+                                    <li><a href="#"><i class="icofont icofont-social-facebook"></i></a></li>
+                                    <li><a href="#"><i class="icofont icofont-social-twitter"></i></a></li>
+                                    <li><a href="#"><i class="icofont icofont-social-pinterest"></i></a></li>
+                                    <li><a href="#"><i class="icofont icofont-social-flikr"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="blog_left_sidebar mb-50">
+                        <h3>Tìm kiếm </h3>
+                        <div class="blog_sidebar_search">
+                            <form action="#">
+                                <input placeholder="Tìm kiếm..." type="text">
+                                <button><i class="icofont icofont-search-alt-2"></i></button>
+                            </form>
+                        </div>
+                    </div>               
+                    <div class="blog_left_sidebar mb-50">
+                        <h3>Bài viết gần đây</h3>
+                        <div class="recent_post mb-30">
+                            <div class="recent_post_title">
+                                <a href="#"><img src="assets/img/blog/5.jpg" alt=""></a>
+                            </div>
+                            <div class="recent_post_content">
+                                <h4><a href="#">The other day the grass brown</a></h4>
+                                <span class="post_date">25 july,2018</span>
+                            </div>
+                        </div>
+                        <div class="recent_post mb-30">
+                            <div class="recent_post_title">
+                                <a href="#"><img src="assets/img/blog/2.jpg" alt=""></a>
+                            </div>
+                            <div class="recent_post_content">
+                                <h4><a href="#">Lorem ipsum dolor sit consectetuer</a></h4>
+                                <span class="post_date">25 july,2018</span>
+                            </div>
+                        </div>
+                        <div class="recent_post">
+                            <div class="recent_post_title">
+                                <a href="#"><img src="assets/img/blog/4.jpg" alt=""></a>
+                            </div>
+                            <div class="recent_post_content">
+                                <h4><a href="#">The other day the grass brown</a></h4>
+                                <span class="post_date">25 july,2018</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="blog_left_sidebar mb-50">
+                        <h3>Tags</h3>
+                        <div class="blog-tags-style">
+                            <ul>
+                                <li><a href="#">Trái cây</a></li>
+                                <li><a href="#">Sứs khoẻ</a></li>
+                                <li><a href="#">Mẹo vặt</a></li>
+                                <li><a href="#">Dinh dưỡng</a></li>
+                                <li><a href="#">Chăm sóc</a></li>
+                                <li><a href="#">Gia đình</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-9 col-md-12">
+                <div class="blog_details_info">
+                    <div class="blog_meta">
+                        <ul>
+                            <li>
+                                <i class="fa fa-eye" aria-hidden="true"></i>
+                                @Model.Vote
+                            </li>
+                            <li>@Model.DateCreated</li>
+                        </ul>
+                    </div>
+                    <h3>@Model.Title</h3>
+                    <div class="blog_details_img">
+                        <img src="@Model.Image" alt="" style="height:336px;width:600px">
+                    </div>
+                    <div class="post_excerpt">
+                        
+                    </div>
+
+
+                    <div class="blog_leave_area">
+                        <h3>Suy nghĩ của bạn</h3>
+                        <form action="#">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="blog_leave_form mb-20">
+                                        <input placeholder="Họ và tên *" type="text">
+                                    </div>
+                                    <div class="blog_leave_form mb-20">
+                                        <input placeholder="Email *" type="Email">
+                                    </div>
+                                    <div class="blog_leave_form mb-20">
+                                        <input placeholder="Số điện thoại" type="text">
+                                    </div>
+
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="label_textarea">
+                                        <textarea placeholder="Bình luận*"></textarea>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="blog_leave_btn">
+                                        <button type="submit">Submit</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                  
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,33 @@
+﻿@model VegetableStore.Models.ViewModels.ListProductViewModel
+@{
+    ViewData["Title"] = "Mua Gộp";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3>Đặt trước</h3>
+
+<div class="blog_list_area">
+    <div class="container">
+        <div class="row">
+            @foreach (var item in Model.Data.Results)
+            {
+                var url = "/" + item.Name + "-" + "s." + item.Id + ".html";
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                    <div class="single_blog_list">
+                        <div class="blog__thumb">
+                            <a href="@url"><img style="width:270px;height:200px" src="@item.Image" alt=""></a>
+                        </div>
+                        <div class="post__content">
+                            <h3><a href="@url">@item.Name</a></h3>
+                            <ul>
+                                <li><a href="@url">Read More</a></li>
+                                <li class="post_date">@item.DateCreated</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+@Html.Partial("_modalView.cshtml")

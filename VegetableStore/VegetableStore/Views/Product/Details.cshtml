@@ -1,0 +1,273 @@
+﻿@model VegetableStore.Models.ViewModels.DetailViewModel
+@{
+    ViewData["Title"] = Model.Product.Name;
+    var product = Model.Product;
+}
+<!-- Breadcrumbs -->
+@section Scripts{
+    <script src="~/client-app/controllers/product/details.js"></script>
+    <script>
+        var productObj = new ProductDetailController();
+        productObj.initialize();
+    </script>
+}
+<div class="breadcrumb_container">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <nav>
+                    <ul>
+                        <li>
+                            <a href="/">Trang chủ ></a>
+                        </li>
+                        <li>@product.Name</li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumbs End -->
+<!-- Main Container -->
+<div class="table_primary_block pt-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-12 product_tab_img">
+                <a href="#"><img src="@product.Image" alt="" style="height:400.5px;width:auto;"></a>
+            </div>
+            <div class="col-lg-7 col-md-7 col-sm-12">
+                <div class="product__details_content">
+                    <div class="demo_product">
+                        <h2>@product.Name</h2>
+                    </div>
+                    <div class="product_comments_block">
+                        <div class="comments_note clearfix">
+                            Có @product.Vote lượt mua
+                        </div>
+                        <div class="comments_advices">
+                            <ul>
+                                <li>
+                                    <a href="#reviews">
+                                        <i class="fa fa-comment-o" aria-hidden="true"></i>
+                                        Nhận xét (<span>1</span>)
+                                    </a>
+                                </li>
+                                
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="current_price">
+                        <span>@product.Price vnđ</span>
+                    </div>
+                    <div class="product_information">
+                        <div id="product_description_short">
+                            <p class="description">@product.Description</p>
+                        </div>
+                        <div class="product_variants">
+                            <div class="product_variant_list">
+                                <div class="product_variants_item variants_product">
+                                </div>
+
+                            </div>
+                            <div class="quickview_plus_minus">
+                                <span class="control_label">Số lượng</span>
+                                <div class="quickview_plus_minus_inner">
+                                    <div class="def-number-input number-input safari_only">
+                                        <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()" class="minus"></button>
+                                        <input class="quantity" min="0" name="quantity" value="1" type="number">
+                                        <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"></button>
+                                    </div>
+                                    <div class="kg"><strong>/KG</strong></div>
+                                    <div class="add_button">
+                                        <button type="submit" class="cart-order" data-id="@product.Id"> Thêm vào giỏ</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="product-availability">
+                                @if (product.Quality > 0)
+                                {
+                                    <span id="availability">
+                                        <i class="zmdi zmdi-check"></i>
+                                        Còn hàng
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span id="availability">
+                                        <i class="zmdi zmdi-block" style="color:orangered"></i>
+                                        Hết hàng
+                                    </span>
+                                }
+                                    
+                            </div>
+    
+                            <div class="social-sharing">
+                                <span>Chia sẽ</span>
+                                <ul>
+                                    <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
+                                </ul>
+                            </div>
+                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- primary block end -->
+<!-- product page tab -->
+
+<div class="product_page_tab ptb-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="product_tab_button">
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li>
+                            <a class=" tav_past active" id="descript" data-toggle="tab" href="#Description" role="tab" aria-controls="Description" aria-selected="true">Mô tả</a>
+                        </li>
+                        <li>
+                            <a class=" tav_past" id="infomation" data-toggle="tab" href="#details" role="tab" aria-controls="details" aria-selected="false">Thông tin</a>
+                        </li>
+                        <li>
+                            <a class=" tav_past" id="reviews" data-toggle="tab" href="#Reviews" role="tab" aria-controls="Reviews" aria-selected="false">Nhận xét</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="Description" role="tabpanel">
+                        <div class="product-description">
+                            <p>@product.Description</p>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="details" role="tabpanel">
+                        <div class="product-details">
+                            <div class="product-manufacturer">
+                                <a href="#"><img src="assets/img/cart/11.jpg" alt=""></a>
+                            </div>
+                            <div class="product-reference">
+                                <label class="label">Reference </label>
+                                <span>demo_10</span>
+                            </div>
+                            <div class="product-quantities">
+                                <label class="label">In stock</label>
+                                <span>321 Items</span>
+                            </div>
+                            <div class="product-out-of-stock">
+                                <section class="product-features">
+                                    <h3>Data sheet</h3>
+                                    <dl class="data-sheet">
+                                        <dt class="name">Compositions</dt>
+                                        <dd class="value">Viscose</dd>
+                                        <dt class="name">Styles</dt>
+                                        <dd class="value">Dressy</dd>
+                                        <dt class="name">Properties</dt>
+                                        <dd class="value">Short Dress</dd>
+                                    </dl>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="Reviews" role="tabpanel">
+                        <div class="product_comments_block_tab">
+                            <div class="comment_clearfix">
+                                <div class="comment_author">
+                                    <span>Grade </span>
+                                    <div class="star_content clearfix">
+                                        <ul>
+                                            <li><i class="fa fa-star"></i></li>
+                                            <li><i class="fa fa-star"></i></li>
+                                            <li><i class="fa fa-star"></i></li>
+                                            <li><i class="fa fa-star"></i></li>
+                                            <li><i class="fa fa-star"></i></li>
+                                        </ul>
+                                    </div>
+
+                                </div>
+                                <div class="comment_author_infos">
+                                    <strong>posthemes </strong>
+                                    <br>
+                                    <em>05/08/2018</em>
+                                </div>
+                                <div class="comment_details">
+                                    <h4>Demo</h4>
+                                    <p>themes</p>
+                                </div>
+                                <div class="review">
+                                    <p><a href="#">Write your review !</a></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- product page tab end -->
+<!--Features product area-->
+<div class="features_product">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section_title text-left">
+                    <h3> Sản phẩm liên quan </h3>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="related_product_active owl-carousel">
+                @foreach (var item in Model.HotProducts)
+                {
+                    var url = "/"+item.Name + "-" + "p." + item.Id + ".html";
+                    <div class="col-lg-2">
+                        <div class="single__product">
+                            <div class="single_product__inner">
+                                <span class="new_badge">new</span>
+                                @if (item.Quality != 0)
+                                {
+                                    <span class="number">Còn hàng</span>
+                                }
+                                else
+                                {
+                                    <span class="number" style="background:orangered">Hết hàng</span>
+                                }
+                                <div class="product_img">
+                                    <a title="@item.Name" href="@url">
+                                        <img src="@item.Image" alt="" style="height:253.8px;width:253.8px">
+                                    </a>
+                                </div>
+                                <div class="product__content text-center">
+                                    <div class="produc_desc_info">
+                                        <div class="product_title">
+                                            <h4><a title="@item.Name" href="@url">@item.Name</a></h4>
+                                        </div>
+                                        <div class="product_price">
+                                            <p>@item.Price vnđ</p>
+                                        </div>
+                                    </div>
+                                    <div class="product__hover">
+                                        <ul>
+                                            <li><a href="#" class="cart-order" data-id="@item.Id"><i class="ion-android-cart" title="Thêm vào gỏi"></i></a></li>
+                                            <li><a class="cart-fore" href="#" data-id="@item.Id" data-toggle="modal" data-target="#my_modal" title="Xem Nhanh"><i class="ion-android-open"></i></a></li>
+                                            <li><a href="@url" data-id="@item.Id"><i class="ion-clipboard" title="Xem thông tin"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+               
+
+
+          
+            </div>
+        </div>
+    </div>
+</div>

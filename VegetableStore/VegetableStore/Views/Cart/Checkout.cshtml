@@ -1,0 +1,146 @@
+﻿@model CheckoutViewModel
+@inject UserManager<AppUser> UserManager
+@inject SignInManager<AppUser> SignInManager
+@{
+    ViewData["Title"] = "Checkout";
+  
+}
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}
+<!-- Breadcrumbs -->
+<div class="breadcrumb_container ">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <nav>
+                    <ul>
+                        <li>
+                            <a href="/">Trang chủ ></a>
+                        </li>
+                        <li>Thanh Toán</li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<!--breadcrumb area end-->
+<!--Checkout page section-->
+<div class="Checkout_page_section">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <div class="container">
+            @if (ViewData["Success"] != null)
+            {
+                if ((bool)ViewData["Success"] == true)
+                {
+                    <div class="alert alert-success">
+                        Cảm ơn vì đơn hàng của bạn. Chúng tôi sẽ sớm xác nhận đôn hàng của bạn.
+                    </div>
+                }
+                else
+                {
+                    <div class="alert alert-danger">
+                        Có lõi trong quá trình đặt hàng. Hãy liên lạc bên admin.
+                    </div>
+                }
+            }
+            else
+            {
+                var user = UserManager.Users.First(x => x.UserName == UserManager.GetUserName(User));
+                <form action="/checkout.html" method="post">
+                    <div class="checkout-form">
+                        <div class="row">
+                            @Html.AntiForgeryToken()
+                            <div class="col-lg-6 col-md-6">
+                                <div>
+                                    <h3>Chi tiết thanh toán</h3>
+                                    <div class="row">
+                                        <div class="col-12 mb-30">
+                                            <label for="b_f_name">Họ và tên <span>*</span></label>
+                                            <input id="b_f_name" type="text" asp-for="CustomerName" value="@user.FullName">
+                                        </div>
+
+                                        <div class="col-12 mb-30">
+                                            <label for="b_f_address">Địa chỉ <span>*</span></label>
+                                            <input id="b_f_address" type="text" asp-for="CustomerAddress" value="@user.Address">
+                                        </div>
+                                        <div class="col-lg-6 mb-30">
+                                            <label for="b_email">Email</label>
+                                            <input id="b_email" type="text" value="@user.Email">
+                                        </div>
+                                        <div class="col-lg-6 mb-30">
+                                            <label>Số điện thoại <span>*</span></label>
+                                            <input placeholder="Phone Number" type="text" asp-for="CustomerMobile" value="@user.PhoneNumber">
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="order-notes">
+                                                <label for="order_note">Lưu ý</label>
+                                                <textarea id="order_note" type="text" asp-for="CustomerMessage"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6">
+
+                                <div class="order-wrapper">
+                                    <h3>Your order</h3>
+                                    <div class="order-table table-responsive mb-30">
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th class="product-name">Sản phẩm</th>
+                                                    <th class="product-total">Tổng cộng</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var item in Model.Carts)
+                                                {
+                                                    <tr>
+                                                        <td class="product-name">@item.Product.Name <strong> × @item.Quantity</strong></td>
+                                                        <td class="amount"> $@((item.Price * item.Quantity).ToString("N0"))</td>
+                                                    </tr>
+                                                }
+
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <th>Tổng số tất cả</th>
+                                                    <td><strong>$@Model.Carts.Sum(x => x.Quantity * x.Price).ToString("N0")</strong></td>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
+                                    </div>
+                                    <div class="payment-method">
+                                        @for (int i = 0; i < Model.PaymentMethods.Count(); i++)
+                                        {
+                                            <div class="panel-default">
+                                                <label class="righ_10" asp-for="@Model.PaymentMethods[i].Value">
+                                                    <input type="radio" name="paymentMethod" asp-for="PaymentMethod" value="@Model.PaymentMethods[i].Value">
+                                                    @Model.PaymentMethods[i].Name
+                                                </label>
+                                            </div>
+
+                                        }
+                                        <div class="order-button">
+                                            <button type="submit" class="button pull-right">Đặt hàng</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-success">
+            Hãy đăng nhập
+        </div>
+    }
+
+</div>

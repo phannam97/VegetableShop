@@ -1,0 +1,92 @@
+﻿@using System.Linq
+@model LoginViewModel
+@inject SignInManager<AppUser> SignInManager
+@{
+    ViewData["Title"] = "Log in";
+}
+<!-- Breadcrumbs -->
+<div class="breadcrumb_container">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <nav>
+                    <ul>
+                        <li><a href="#">Home</a> ></li>
+                        <li>login</li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumbs End -->
+<!-- Main Container -->
+<div class="page_login_section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-sm-10 offset-sm-1">
+                <div class="login_page_form">
+                    <form asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
+                        <div class="row">
+                            <div asp-validation-summary="All" class="text-danger"></div>
+                            <div class="col-12">
+                                <div class="input_text">
+                                    <label asp-for="Email">Email <span>*</span></label>
+                                    <input type="text" asp-for="Email" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="input_text">
+                                    <label asp-for="Password">Passwords <span>*</span></label>
+                                    <input id="password_login" asp-for="Password" type="password" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="login_submit">
+                                    <input class="inline" value="Login" name="Login" type="submit">
+                                    <label class="inline" asp-for="RememberMe">
+                                        <input asp-for="RememberMe" type="checkbox">
+                                        Remember me
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    @*<section>
+                        <h4>Use another service to log in.</h4>
+                        <hr />
+                        @{
+                            var loginProviders = (await SignInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+                            if (loginProviders.Count == 0)
+                            {
+                                <div>
+                                    <p>
+                                        There are no external authentication services configured. See <a href="https://go.microsoft.com/fwlink/?LinkID=532715">this article</a>
+                                        for details on setting up this ASP.NET application to support logging in via external services.
+                                    </p>
+                                </div>
+                            }
+                            else
+                            {
+                                <form asp-action="ExternalLogin" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal">
+                                    <div>
+                                        <p>
+                                            @foreach (var provider in loginProviders)
+                                            {
+                                                <button type="submit" class="btn btn-default" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.Name</button>
+                                            }
+                                        </p>
+                                    </div>
+                                </form>
+                            }
+                        }
+                    </section>*@
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Main Container End -->
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}

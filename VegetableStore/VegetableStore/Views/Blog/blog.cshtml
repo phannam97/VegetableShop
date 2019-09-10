@@ -1,0 +1,118 @@
+﻿@model ListBlogViewModel
+@{
+    ViewData["Title"] = "blog";
+}
+<div class="breadcrumb_container">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <nav>
+                    <ul>
+                        <li>
+                            <a href="/">Trang chủ ></a>
+                        </li>
+                        <li>Bài viết</li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="blog_list_area">
+    <div class="container">
+        <div class="row">
+            @foreach (var item in Model.Data.Results)
+            {
+                var url= "/"+"blog"+ "-"+item.Id+".html";
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                    <div class="single_blog_list">
+                        <div class="blog__thumb">
+                            <a href="@url"><img src="@item.Image" alt=""style="height:273px;width:370px"></a>
+                        </div>
+                        <div class="post__content">
+                            <h3><a href="@url">@item.Title</a></h3>
+                            <ul>
+                                <li><a href="@url">Read More</a></li>
+                                <li class="post_date">@item.DateCreated.Date</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            @*<div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="single_blog_list">
+                    <div class="blog__thumb">
+                        <a href="blog-details.html"><img src="assets/img/blog/3.jpg" alt=""></a>
+                    </div>
+                    <div class="post__content">
+                        <h3><a href="blog-details.html">Sed ut perspiciatis unde omnis iste natus error sit voluptatem.</a></h3>
+                        <ul>
+                            <li><a href="blog-details.html">Read More</a></li>
+                            <li class="post_date">July 10, 2018</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="single_blog_list">
+                    <div class="blog__thumb">
+                        <a href="blog-details.html"><img src="assets/img/blog/4.jpg" alt=""></a>
+                    </div>
+                    <div class="post__content">
+                        <h3><a href="blog-details.html">Neque porro quisquam est, qui dolorem ipsum quia.</a></h3>
+                        <ul>
+                            <li><a href="blog-details.html">Read More</a></li>
+                            <li class="post_date">July 10, 2018</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="single_blog_list">
+                    <div class="blog__thumb">
+                        <a href="blog-details.html"><img src="assets/img/blog/2.jpg" alt=""></a>
+                    </div>
+                    <div class="post__content">
+                        <h3><a href="blog-details.html">Ut enim ad minima veniam, quis nostrum exercitationem.</a></h3>
+                        <ul>
+                            <li><a href="blog-details.html">Read More</a></li>
+                            <li class="post_date">July 10, 2018</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="single_blog_list">
+                    <div class="blog__thumb">
+                        <a href="blog-details.html"><img src="assets/img/blog/6.jpg" alt=""></a>
+                    </div>
+                    <div class="post__content">
+                        <h3><a href="blog-details.html">Nemo enim ipsam voluptatem quia voluptas sit aspernatur.</a></h3>
+                        <ul>
+                            <li><a href="blog-details.html">Read More</a></li>
+                            <li class="post_date">July 10, 2018</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="single_blog_list">
+                    <div class="blog__thumb">
+                        <a href="blog-details.html"><img src="assets/img/blog/1.jpg" alt=""></a>
+                    </div>
+                    <div class="post__content">
+                        <h3><a href="blog-details.html"> Duis aute irure dolor in reprehenderit in voluptate  esse.</a></h3>
+                        <ul>
+                            <li><a href="blog-details.html">Read More</a></li>
+                            <li class="post_date">July 10, 2018</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>*@
+                <div class="col-12">
+                    @(await Component.InvokeAsync("Pager", Model.Data))
+                </div>
+        </div>
+    </div>
+</div>
